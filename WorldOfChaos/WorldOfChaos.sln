@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35506.116 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldOfChaos", "WorldOfChaos\WorldOfChaos.csproj", "{4FA2A669-BE54-451C-8F17-D2A1EE86C5AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldOfChaos.Core", "WorldOfChaos.Core\WorldOfChaos.Core.csproj", "{337F87ED-9F20-4185-BE7B-B7633D406278}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FA2A669-BE54-451C-8F17-D2A1EE86C5AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FA2A669-BE54-451C-8F17-D2A1EE86C5AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FA2A669-BE54-451C-8F17-D2A1EE86C5AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FA2A669-BE54-451C-8F17-D2A1EE86C5AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{337F87ED-9F20-4185-BE7B-B7633D406278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{337F87ED-9F20-4185-BE7B-B7633D406278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{337F87ED-9F20-4185-BE7B-B7633D406278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{337F87ED-9F20-4185-BE7B-B7633D406278}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
