@@ -7,4 +7,28 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\Textures\box-diffuse.png" />
+    <None Remove="Resources\Textures\box-specular.png" />
+    <None Remove="Resources\Textures\sphere-diffuse.jpg" />
+    <None Remove="Resources\Textures\sphere-specular.png" />
+    <None Remove="Resources\Textures\stone-diffuse.jpg" />
+    <None Remove="Resources\Textures\stone-specular.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Textures\box-diffuse.png" />
+    <EmbeddedResource Include="Resources\Textures\box-specular.png" />
+    <EmbeddedResource Include="Resources\Textures\sphere-diffuse.jpg" />
+    <EmbeddedResource Include="Resources\Textures\sphere-specular.png" />
+    <EmbeddedResource Include="Resources\Textures\stone-diffuse.jpg" />
+    <EmbeddedResource Include="Resources\Textures\stone-specular.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Icons\world-of-chaos.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
