@@ -39,7 +39,6 @@ public sealed class WorldOfChaosWindow : GameWindow
 	private Texture DiffuseMirrorTexture = null!;
 	private Texture SpecularMirrorTexture = null!;
 
-
 	// Materials:
 	private Material CubeMaterial = null!;
 	private Material SphereMaterial = null!;
@@ -148,78 +147,8 @@ public sealed class WorldOfChaosWindow : GameWindow
 		};
 	}
 
-	// Methods from GameWindow:
-	protected override void OnLoad()
+	private void ConfigureLighting()
 	{
-		base.OnLoad();
-
-		Console.WriteLine("Hello from the World of Chaos!");
-
-		GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		GL.DebugMessageCallback(DebugProcCallback, IntPtr.Zero);
-		GL.Enable(EnableCap.DebugOutput);
-
-#if DEBUG
-		GL.Enable(EnableCap.DebugOutputSynchronous);
-#endif
-		GL.Enable(EnableCap.DepthTest);
-		GL.DepthFunc(DepthFunction.Lequal);
-
-		// Meshes:
-		PointLightMesh = PointLight.GenerateMesh();
-		CubeMesh = Cube.GenerateMesh();
-		PlaneMesh = Plane.GenerateMesh();
-		SphereMesh = Sphere.GenerateMesh();
-
-		// Shaders:
-		PointLightShader = new Shader(
-			("WorldOfChaos.Resources.Shaders.pointlight.vert.glsl", ShaderType.VertexShader),
-			("WorldOfChaos.Resources.Shaders.pointlight.frag.glsl", ShaderType.FragmentShader)
-		);
-
-		CubeShader = new Shader(
-			("WorldOfChaos.Resources.Shaders.phong.vert.glsl", ShaderType.VertexShader),
-			("WorldOfChaos.Resources.Shaders.phong.frag.glsl", ShaderType.FragmentShader)
-		);
-
-		// Textures:
-		DiffuseCubeTexture = new Texture("WorldOfChaos.Resources.Textures.box-diffuse.png");
-		SpecularCubeTexture = new Texture("WorldOfChaos.Resources.Textures.box-specular.png");
-		CubeMaterial = new Material(DiffuseCubeTexture, SpecularCubeTexture, shininess: 32.0f);
-
-		SpecularSphereTexture = new Texture("WorldOfChaos.Resources.Textures.sphere-specular.png");
-		DiffuseSphereTexture = new Texture("WorldOfChaos.Resources.Textures.sphere-diffuse.jpg");
-		SphereMaterial = new Material(DiffuseSphereTexture, SpecularSphereTexture, shininess: 32.0f);
-
-		SpecularMirrorTexture = new Texture("WorldOfChaos.Resources.Textures.stone-specular.png");
-		DiffuseMirrorTexture = new Texture("WorldOfChaos.Resources.Textures.stone-diffuse.jpg");
-		MirrorMaterial = new Material(SpecularMirrorTexture, DiffuseMirrorTexture, shininess: 32.0f);
-
-		// Models:
-		PointLights = PointLightPositions
-			.Select(p => new PointLight(PointLightMesh, new(1.0f, 1.0f, 1.0f))
-			{
-				Position = p,
-				Scale = new(0.2f, 0.2f, 0.2f)
-			}).ToArray();
-
-		Cubes = CubePositions.Select(c => new Cube(CubeMesh, CubeMaterial)
-		{
-			Position = c,
-			Scale = new(1.2f, 1.2f, 1.2f)
-		}).ToArray();
-
-		Sphere = new Sphere(SphereMesh, SphereMaterial)
-		{
-			Position = new Vector3(5, 5, 5)
-		};
-
-		Plane = new Plane(PlaneMesh, material: null)
-		{
-			Position = new(0.0f, 0.0f, -20.0f),
-			Scale = new(5.0f, 5.0f, 5.0f)
-		};
-
 		// Lighting:
 		var pointlights = PointLightPositions.Select(
 			p => new PointLightSource(
@@ -267,9 +196,90 @@ public sealed class WorldOfChaosWindow : GameWindow
 
 		// Fog:
 		Lightman.Fog = new Fog(start: 10, end: 50);
+	}
 
-		// Mirror:
-		InitializeMirrorElements();
+	private void ConfigureResources()
+	{
+		// Meshes:
+		PointLightMesh = PointLight.GenerateMesh();
+		CubeMesh = Cube.GenerateMesh();
+		PlaneMesh = Plane.GenerateMesh();
+		SphereMesh = Sphere.GenerateMesh();
+
+		// Shaders:
+		PointLightShader = new Shader(
+			("WorldOfChaos.Resources.Shaders.pointlight.vert.glsl", ShaderType.VertexShader),
+			("WorldOfChaos.Resources.Shaders.pointlight.frag.glsl", ShaderType.FragmentShader)
+		);
+
+		CubeShader = new Shader(
+			("WorldOfChaos.Resources.Shaders.phong.vert.glsl", ShaderType.VertexShader),
+			("WorldOfChaos.Resources.Shaders.phong.frag.glsl", ShaderType.FragmentShader)
+		);
+
+		// Textures:
+		DiffuseCubeTexture = new Texture("WorldOfChaos.Resources.Textures.box-diffuse.png");
+		SpecularCubeTexture = new Texture("WorldOfChaos.Resources.Textures.box-specular.png");
+		CubeMaterial = new Material(DiffuseCubeTexture, SpecularCubeTexture, shininess: 32.0f);
+
+		SpecularSphereTexture = new Texture("WorldOfChaos.Resources.Textures.sphere-specular.png");
+		DiffuseSphereTexture = new Texture("WorldOfChaos.Resources.Textures.sphere-diffuse.jpg");
+		SphereMaterial = new Material(DiffuseSphereTexture, SpecularSphereTexture, shininess: 32.0f);
+
+		SpecularMirrorTexture = new Texture("WorldOfChaos.Resources.Textures.stone-specular.png");
+		DiffuseMirrorTexture = new Texture("WorldOfChaos.Resources.Textures.stone-diffuse.jpg");
+		MirrorMaterial = new Material(SpecularMirrorTexture, DiffuseMirrorTexture, shininess: 32.0f);
+	}
+
+	private void ConfigureModels()
+	{
+		// Models:
+		PointLights = PointLightPositions
+			.Select(p => new PointLight(PointLightMesh, new(1.0f, 1.0f, 1.0f))
+			{
+				Position = p,
+				Scale = new(0.2f, 0.2f, 0.2f)
+			}).ToArray();
+
+		Cubes = CubePositions.Select(c => new Cube(CubeMesh, CubeMaterial)
+		{
+			Position = c,
+			Scale = new(1.2f, 1.2f, 1.2f)
+		}).ToArray();
+
+		Sphere = new Sphere(SphereMesh, SphereMaterial)
+		{
+			Position = new Vector3(5, 5, 5)
+		};
+
+		Plane = new Plane(PlaneMesh, material: null)
+		{
+			Position = new(0.0f, 0.0f, -20.0f),
+			Scale = new(5.0f, 5.0f, 5.0f)
+		};
+	}
+
+	// Methods from GameWindow:
+	protected override void OnLoad()
+	{
+		base.OnLoad();
+
+		Console.WriteLine("Hello from the World of Chaos!");
+
+		GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		GL.DebugMessageCallback(DebugProcCallback, IntPtr.Zero);
+		GL.Enable(EnableCap.DebugOutput);
+
+#if DEBUG
+		GL.Enable(EnableCap.DebugOutputSynchronous);
+#endif
+		GL.Enable(EnableCap.DepthTest);
+		GL.DepthFunc(DepthFunction.Lequal);
+
+		ConfigureResources();
+		ConfigureModels();
+		ConfigureLighting();
+		ConfigureMirror();
 	}
 	
 	protected override void OnUpdateFrame(FrameEventArgs args)
@@ -302,13 +312,13 @@ public sealed class WorldOfChaosWindow : GameWindow
 	{
 		base.OnRenderFrame(args);
 
-		RenderMirrorFrame();
+		RenderSceneOnMirrorTexture();
 
 		GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 		RenderScene(Cameraman.ActiveCamera.ViewMatrix, Cameraman.ActiveCamera.Position, Cameraman.ActiveCamera.ProjectionMatrix);
 
-		RenderMirrorPlane();
+		RenderMirror();
 
 		SwapBuffers();
 	}
@@ -433,7 +443,7 @@ public sealed class WorldOfChaosWindow : GameWindow
 	}
 
 	// Mirror related methods:
-	private void InitializeMirrorElements()
+	private void ConfigureMirror()
 	{
 		MirrorFramebuffer = new FrameBuffer();
 		MirrorTexture = new Texture();
@@ -453,7 +463,7 @@ public sealed class WorldOfChaosWindow : GameWindow
 		);
 	}
 
-	private void RenderMirrorFrame()
+	private void RenderSceneOnMirrorTexture()
 	{
 		MirrorFramebuffer.Bind();
 
@@ -473,7 +483,7 @@ public sealed class WorldOfChaosWindow : GameWindow
 		GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
 	}
 
-	private void RenderMirrorPlane()
+	private void RenderMirror()
 	{
 		MirrorShader.Use();
 		Lightman.ApplyFog(MirrorShader);
