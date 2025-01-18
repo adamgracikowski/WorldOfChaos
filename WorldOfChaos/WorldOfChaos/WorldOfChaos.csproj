@@ -38,6 +38,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WorldOfChaos.Core\WorldOfChaos.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Resources\Icons\world-of-chaos.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
