@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Shaders\mirror.frag.glsl" />
+    <None Remove="Resources\Shaders\mirror.vert.glsl" />
+    <None Remove="Resources\Shaders\phong.frag.glsl" />
+    <None Remove="Resources\Shaders\phong.vert.glsl" />
+    <None Remove="Resources\Shaders\pointlight.frag.glsl" />
+    <None Remove="Resources\Shaders\pointlight.vert.glsl" />
     <None Remove="Resources\Textures\box-diffuse.png" />
     <None Remove="Resources\Textures\box-specular.png" />
     <None Remove="Resources\Textures\sphere-diffuse.jpg" />
@@ -17,6 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Shaders\mirror.frag.glsl" />
+    <EmbeddedResource Include="Resources\Shaders\mirror.vert.glsl" />
+    <EmbeddedResource Include="Resources\Shaders\phong.frag.glsl" />
+    <EmbeddedResource Include="Resources\Shaders\phong.vert.glsl" />
+    <EmbeddedResource Include="Resources\Shaders\pointlight.frag.glsl" />
+    <EmbeddedResource Include="Resources\Shaders\pointlight.vert.glsl" />
     <EmbeddedResource Include="Resources\Textures\box-diffuse.png" />
     <EmbeddedResource Include="Resources\Textures\box-specular.png" />
     <EmbeddedResource Include="Resources\Textures\sphere-diffuse.jpg" />
