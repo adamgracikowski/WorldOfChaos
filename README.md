@@ -1,6 +1,6 @@
 # WorldOfChaos
 
-Dynamic 3D scene rendered using the [OpenTk](https://github.com/opentk/opentk) and [StbImageSharp](https://github.com/StbSharp/StbImageSharp) libraries.
+Dynamic 3D scene rendered using the [OpenTK](https://github.com/opentk/opentk) and [StbImageSharp](https://github.com/StbSharp/StbImageSharp) libraries.
 
 The project showcases a 3D environment with a variety of objects, lighting effects, and advanced rendering techniques.
 Designed as an interactive visualization, it offers multiple viewing perspectives and customizable rendering settings.
