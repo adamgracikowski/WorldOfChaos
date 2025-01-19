@@ -16,6 +16,8 @@
     <None Remove="Resources\Shaders\pointlight.vert.glsl" />
     <None Remove="Resources\Textures\box-diffuse.png" />
     <None Remove="Resources\Textures\box-specular.png" />
+    <None Remove="Resources\Textures\rock-diffuse.jpg" />
+    <None Remove="Resources\Textures\rock-specular.png" />
     <None Remove="Resources\Textures\sphere-diffuse.jpg" />
     <None Remove="Resources\Textures\sphere-specular.png" />
     <None Remove="Resources\Textures\stone-diffuse.jpg" />
@@ -31,6 +33,8 @@
     <EmbeddedResource Include="Resources\Shaders\pointlight.vert.glsl" />
     <EmbeddedResource Include="Resources\Textures\box-diffuse.png" />
     <EmbeddedResource Include="Resources\Textures\box-specular.png" />
+    <EmbeddedResource Include="Resources\Textures\rock-diffuse.jpg" />
+    <EmbeddedResource Include="Resources\Textures\rock-specular.png" />
     <EmbeddedResource Include="Resources\Textures\sphere-diffuse.jpg" />
     <EmbeddedResource Include="Resources\Textures\sphere-specular.png" />
     <EmbeddedResource Include="Resources\Textures\stone-diffuse.jpg" />

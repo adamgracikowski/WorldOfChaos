@@ -38,10 +38,13 @@ public sealed class WorldOfChaosWindow : GameWindow
 	private Texture MirrorTexture = null!;
 	private Texture DiffuseMirrorTexture = null!;
 	private Texture SpecularMirrorTexture = null!;
+	private Texture SpecularRockTexture = null!;
+	private Texture DiffuseRockTexture = null!;
 
 	// Materials:
 	private Material CubeMaterial = null!;
 	private Material SphereMaterial = null!;
+	private Material RockMaterial = null!;
 	private Material MirrorMaterial = null!;
 
 	// Buffers:
@@ -52,6 +55,7 @@ public sealed class WorldOfChaosWindow : GameWindow
 	private PointLight[] PointLights = [];
 	private Cube[] Cubes = [];
 	private Sphere Sphere = null!;
+	private Sphere[] Spheres = [];
 	private Plane Plane = null!;
 
 	// Other:
@@ -80,6 +84,14 @@ public sealed class WorldOfChaosWindow : GameWindow
 		new(1.5f, 2.0f, -2.5f),
 		new(1.5f, 0.2f, -1.5f),
 		new(-1.3f, 1.0f, -1.5f)
+	];
+	private readonly Vector3[] SpherePositions =
+	[
+		new(-2.0f, 0.0f, 0.0f),
+		new(3.0f, -1.0f, 3.0f),
+		new(2.0f, 2.0f, -5.0f),
+		new(5.0f, 0.0f, -7.3f),
+		new(-1.5f, 2.0f, -4.0f),
 	];
 	
 	private DebugProc DebugProcCallback { get; } = OnDebugMessage;
@@ -229,17 +241,20 @@ public sealed class WorldOfChaosWindow : GameWindow
 		SpecularMirrorTexture = new Texture("WorldOfChaos.Resources.Textures.stone-specular.png");
 		DiffuseMirrorTexture = new Texture("WorldOfChaos.Resources.Textures.stone-diffuse.jpg");
 		MirrorMaterial = new Material(SpecularMirrorTexture, DiffuseMirrorTexture, shininess: 32.0f);
+
+		SpecularRockTexture = new Texture("WorldOfChaos.Resources.Textures.rock-specular.png");
+		DiffuseRockTexture = new Texture("WorldOfChaos.Resources.Textures.rock-diffuse.jpg");
+		RockMaterial = new Material(DiffuseRockTexture, SpecularRockTexture, shininess: 32.0f);
 	}
 
 	private void ConfigureModels()
 	{
 		// Models:
-		PointLights = PointLightPositions
-			.Select(p => new PointLight(PointLightMesh, new(1.0f, 1.0f, 1.0f))
-			{
-				Position = p,
-				Scale = new(0.2f, 0.2f, 0.2f)
-			}).ToArray();
+		PointLights = PointLightPositions.Select(p => new PointLight(PointLightMesh, new(1.0f, 1.0f, 1.0f))
+		{
+			Position = p,
+			Scale = new(0.2f, 0.2f, 0.2f)
+		}).ToArray();
 
 		Cubes = CubePositions.Select(c => new Cube(CubeMesh, CubeMaterial)
 		{
@@ -251,6 +266,12 @@ public sealed class WorldOfChaosWindow : GameWindow
 		{
 			Position = new Vector3(5, 5, 5)
 		};
+
+		Spheres = SpherePositions.Select(p => new Sphere(SphereMesh, RockMaterial)
+		{
+			Position = p,
+			Scale = new Vector3(0.5f, 0.5f, 0.5f)
+		}).ToArray();
 
 		Plane = new Plane(PlaneMesh, material: null)
 		{
@@ -306,6 +327,11 @@ public sealed class WorldOfChaosWindow : GameWindow
 		}
 
 		Sphere.UpdatePositionAndRotation(dt, 1.0f);
+
+		//foreach(var sphere in Spheres)
+		//{
+		//	sphere.UpdatePositionAndRotation(dt, 1.0f);
+		//}
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs args)
@@ -374,7 +400,7 @@ public sealed class WorldOfChaosWindow : GameWindow
 	{
 		RenderPointLights(viewMatrix, position, projectionMatrix);
 		RenderCubes(viewMatrix, position, projectionMatrix);
-		RenderSphere();
+		RenderSpheres();
 	}
 
 	private void RenderPointLights(Matrix4 viewMatrix, Vector3 position, Matrix4 projectionMatrix)
@@ -429,7 +455,7 @@ public sealed class WorldOfChaosWindow : GameWindow
 		CubeMesh.Unbind();
 	}
 
-	private void RenderSphere()
+	private void RenderSpheres()
 	{
 		SphereMaterial.Use();
 
@@ -439,6 +465,17 @@ public sealed class WorldOfChaosWindow : GameWindow
 
 		Sphere.Mesh.Bind();
 		Sphere.Mesh.RenderIndexed();
+
+		RockMaterial.Use();
+		CubeShader.LoadMaterial(RockMaterial);
+
+		foreach (var sphere in Spheres)
+		{
+			CubeShader.LoadMatrix4("model", sphere.Model);
+			CubeShader.LoadMatrix3("normalMatrix", new Matrix3(sphere.NormalMatrix));
+			Sphere.Mesh.RenderIndexed();
+		}
+
 		Sphere.Mesh.Unbind();
 	}
 
