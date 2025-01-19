@@ -327,11 +327,6 @@ public sealed class WorldOfChaosWindow : GameWindow
 		}
 
 		Sphere.UpdatePositionAndRotation(dt, 1.0f);
-
-		//foreach(var sphere in Spheres)
-		//{
-		//	sphere.UpdatePositionAndRotation(dt, 1.0f);
-		//}
 	}
 
 	protected override void OnRenderFrame(FrameEventArgs args)
