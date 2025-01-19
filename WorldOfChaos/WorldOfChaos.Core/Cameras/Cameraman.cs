@@ -22,13 +22,13 @@ public sealed class Cameraman
 		// add default cameras
 
 		var noControl = new NoControl(
-			position: new Vector3(0, 3, 3),
-			target: new Vector3(0, 0, 0)
+			position: new Vector3(0, 4, 3),
+			target: new Vector3(0, 1, -10)
 		);
 
 		var flyByControl = new FlyByControl(
-			position: new Vector3(0, 3, 3),
-			focal: new Vector3(0, 0, 0)
+			position: new Vector3(0, 4, 3),
+			focal: new Vector3(0, 1, -10)
 		);
 
 		CameraQueue.Enqueue(
