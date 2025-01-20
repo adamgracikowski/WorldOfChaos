@@ -41,6 +41,14 @@ The project was implemented as a part of the Computer Graphics course at Warsaw 
   - A rectangular mirror placed in the scene reflects nearby objects.
   - Utilizes render-to-texture techniques for realistic reflections.
 
+<p align="center">
+  <img src="Images/03.PNG"/>
+</p>
+
+<p align="center">
+  <img src="Images/04.PNG"/>
+</p>
+
 ## Technologies Used
 
 - [OpenTk](https://github.com/opentk/opentk): A powerful library for OpenGL-based rendering in .NET.
@@ -63,6 +71,10 @@ The project was implemented as a part of the Computer Graphics course at Warsaw 
   - `F`: Enable/disable fog.
   - `B`: Change lighting model (Phong/Blinn).
 - Closing Window: `Esc`.
+
+<p align="center">
+  <img src="Images/05.PNG"/>
+</p>
 
 ## Code Attribution
 
